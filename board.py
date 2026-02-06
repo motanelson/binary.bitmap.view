@@ -27,7 +27,7 @@ class game_board:
         self.labels = labels
         self.root = tk.Tk()
         self.root.title(self.labels)
-
+        self.xy=[]
         self.canvas = tk.Canvas(
             self.root,
             width=self.w,
@@ -77,6 +77,37 @@ class game_board:
         self.root.bind("<Down>", move)
         self.root.bind("<Left>", move)
         self.root.bind("<Right>",move)
+    def loadmaps(self,s:str):
+        h=[]
+        xy=[]
+        xxyy=[]
+        xxx=0
+        yyy=0
+        counter=0
+        f1=open(s,"r")
+        ss=f1.read()
+        f1.close()
+        arr=ss.split("\n")
+        for b in arr:
+            xxyy=[]
+            for c in b:
+                d:int=ord(c)-65
+                if d<0:
+                    u=0
+                elif d==0:
+                    xxyy=xxyy+[int(0)]
+                else:
+                    
+                    xxyy=xxyy+[int(d)]
+                    counter=counter+1
+                xxx=xxx+1
+            xy=xy+[xxyy]
+            yyy=yyy+1
+            xxx=0         
+        self.xy=xy    
+    
+    def report(self):
+        print(self.xy)
     def starts(self):
         self.keyhandle()
         self.root.mainloop()
@@ -93,6 +124,7 @@ games.addbmp(0,0,bbis)
 for n in range(10):
     games.addbmp(n*40,80,pines)
         
-
+games.loadmaps("level.txt")
+games.report()
 games.starts()
 
