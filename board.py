@@ -71,10 +71,14 @@ class game_board:
     
     def moves(self,x,y,n):
         self.canvas.move(self.abmp[n], x, y)
-    #def keyhandle(self):
+    def keyhandle(self):
         # Capturar teclas
+        self.root.bind("<Up>", move)
+        self.root.bind("<Down>", move)
+        self.root.bind("<Left>", move)
+        self.root.bind("<Right>",move)
     def starts(self):
-        #self.keyhandle()
+        self.keyhandle()
         self.root.mainloop()
 
 
@@ -88,10 +92,7 @@ games.loads(l)
 games.addbmp(0,0,bbis)
 for n in range(10):
     games.addbmp(n*40,80,pines)
-games.root.bind("<Up>", move)
-games.root.bind("<Down>", move)
-games.root.bind("<Left>", move)
-games.root.bind("<Right>",move)        
+        
 
 games.starts()
 
