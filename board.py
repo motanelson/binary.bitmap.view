@@ -105,7 +105,30 @@ class game_board:
             yyy=yyy+1
             xxx=0         
         self.xy=xy    
-    
+    def setxy(self,xxxx,yyyy,n):
+        arrays=self.xy
+        xy=[]
+        xxyy=[]
+        xxx=0
+        yyy=0
+        counter=0
+        for b in arrays:
+            xxyy=[]
+            for c in b:
+            
+                if xxxx==xxx and yyyy==yyy:
+                    xxyy=xxyy+[n]
+                else:
+                
+                    xxyy=xxyy+[c]
+                    counter=counter+1
+                xxx=xxx+1
+            xy=xy+[xxyy]
+            yyy=yyy+1
+            xxx=0         
+                
+        self.xy = xy
+
     def report(self):
         print(self.xy)
     def starts(self):
@@ -125,6 +148,7 @@ for n in range(10):
     games.addbmp(n*40,80,pines)
         
 games.loadmaps("level.txt")
+games.setxy(0,0,255)
 games.report()
 games.starts()
 
