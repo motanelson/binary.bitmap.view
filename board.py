@@ -22,7 +22,7 @@ def move(event):
 
 
 
-
+#import game_board
 class game_board:
     def __init__(self, w, h, colors,labels):
         self.w = w
