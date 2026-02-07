@@ -1,12 +1,15 @@
 import tkinter as tk
 from PIL import Image, ImageTk
+import random
+import time
 STEP=10
 l = ["backgr.png","bit.png","pin.png" ]
+pii=10
 bis=1
-bbis=11
+bbis=pii+1
 pines=2
 def move(event):
-    global games,bis
+    global games,bbis
     if event.keysym == "Up":
         games.moves(0, -STEP,bbis)
         
@@ -60,7 +63,13 @@ class game_board:
             self.posxy=self.posxy+[xxyy]
             a=self.canvas.create_image(x, y, image=self.bmp[n], anchor="nw")
             self.abmp.append(a)
-
+    def randoms(self,m,n):
+        xxx=self.w//10
+        yyy=self.h//10
+        for nn in range(m):
+            x=int(random.random()*xxx)*10
+            y=int(random.random()*yyy)*10
+            self.addbmp(x,y,n)
     def loads(self, l: list):
         self.bitmaps = l
 
@@ -200,10 +209,7 @@ class game_board:
 
 games = game_board(640, 480, "black","My game")
 games.loads(l)
-
-for n in range(10):
-    games.addbmp(n*40,80,pines)
-
+games.randoms(pii,pines)
 games.addbmp(0,0,bis)        
 games.loadmaps("level.txt")
 games.setxy(0,0,255)
