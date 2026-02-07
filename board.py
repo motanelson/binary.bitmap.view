@@ -1,19 +1,23 @@
 import tkinter as tk
 from PIL import Image, ImageTk
 STEP=10
+l = ["backgr.png","bit.png","pin.png" ]
+bis=1
+bbis=11
+pines=2
 def move(event):
-    global games
+    global games,bis
     if event.keysym == "Up":
-        games.moves(0, -STEP,bis)
+        games.moves(0, -STEP,bbis)
         
     elif event.keysym == "Down":
-        games.moves( 0, STEP,bis)
+        games.moves( 0, STEP,bbis)
         
     elif event.keysym == "Left":
-        games.moves( -STEP, 0,bis)
+        games.moves( -STEP, 0,bbis)
         
     elif event.keysym == "Right":
-        games.moves(STEP, 0,bis)
+        games.moves(STEP, 0,bbis)
         
 
 
@@ -40,7 +44,12 @@ class game_board:
         self.bitmaps = []
         self.bmp = []   # referência às PhotoImage (IMPORTANTE)
         self.abmp = []
-        
+
+    def addbmp(self,x,y,n):
+            # desenhar no canvas
+            a=self.canvas.create_image(x, y, image=self.bmp[n], anchor="nw")
+            self.abmp.append(a)
+
     def loads(self, l: list):
         self.bitmaps = l
 
@@ -62,12 +71,8 @@ class game_board:
 
             tk_img = ImageTk.PhotoImage(img)
             self.bmp.append(tk_img)  # manter referência
-
+        games.addbmp(0,0,0)
             
-    def addbmp(self,x,y,n):
-            # desenhar no canvas
-            a=self.canvas.create_image(x, y, image=self.bmp[n], anchor="nw")
-            self.abmp.append(a)
     
     def moves(self,x,y,n):
         self.canvas.move(self.abmp[n], x, y)
@@ -137,16 +142,14 @@ class game_board:
 
 
 # -------------------------------
-l = ["pin.png", "bit.png"]
-bis=0
-bbis=1
-pines=0
+
 games = game_board(640, 480, "black","My game")
 games.loads(l)
-games.addbmp(0,0,bbis)
+
 for n in range(10):
     games.addbmp(n*40,80,pines)
-        
+
+games.addbmp(0,0,bis)        
 games.loadmaps("level.txt")
 games.setxy(0,0,255)
 games.report()
