@@ -45,6 +45,7 @@ class game_board:
         self.bmp = []   # referência às PhotoImage (IMPORTANTE)
         self.abmp = []
         self.scores=0
+        self.posxy=[]
     def score(self,n):
         self.scores=n
         self.labels = "score : " + str(self.scores)
@@ -54,6 +55,8 @@ class game_board:
         self.score(self.scores)
     def addbmp(self,x,y,n):
             # desenhar no canvas
+            xxyy=[x]+[y]
+            self.posxy=self.posxy+[xxyy]
             a=self.canvas.create_image(x, y, image=self.bmp[n], anchor="nw")
             self.abmp.append(a)
 
@@ -79,10 +82,22 @@ class game_board:
             tk_img = ImageTk.PhotoImage(img)
             self.bmp.append(tk_img)  # manter referência
         games.addbmp(0,0,0)
-            
+    def setpos(self,x,y,n):
+        counter=0
+        posxy=[]
+        for a in self.posxy:
+            if counter==n:
+                xxyy=[x]+[y]
+                posxy=posxy+[xxyy]
+            else:
+                posxy=posxy+[a]
+            counter=counter+1
+        self.posxy=posxy
+        
     
     def moves(self,x,y,n):
         self.canvas.move(self.abmp[n], x, y)
+        self.setpos(x,y,n)
     def keyhandle(self):
         # Capturar teclas
         self.root.bind("<Up>", move)
@@ -165,7 +180,8 @@ class game_board:
             xxx=0         
                 
         self.xy = xy
-
+    def reportposxy(self):
+        print(self.posxy)
     def report(self):
         print(self.xy)
     def starts(self):
@@ -187,5 +203,6 @@ games.setxy(0,0,255)
 games.reportcsv()
 games.scoreplus(200)
 games.scoreplus(200)
+games.reportposxy()
 games.starts()
 
