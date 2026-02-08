@@ -236,7 +236,26 @@ class game_board:
             y=self.posxy[nn][1]
             if abs(xx-x)<30 and abs(yy-y)<30:
                 return nn
-        return -1    
+        return -1
+    def createmap(self,froms,intos,values):
+        self.xy=[]
+        xxx=self.w//10
+        yyy=self.h//10
+        x1=[]
+        y1=[]
+        for xx in range(xxx):
+             x1=x1+[0]
+        
+        for yyy in range(yyy):
+            y1=y1+[x1]
+        
+        self.xy=y1
+        for n in range(froms,intos):
+            x=self.posxy[n][0]//10
+            y=self.posxy[n][0]//10
+            self.setxy(x,y,values)
+           
+        
     def reportposxy(self):
         self.logs(self.posxy)
     def report(self):
@@ -256,7 +275,7 @@ games.clearlogs()
 games.dates()     
 games.titles("score:")     
 games.loadmaps("level.txt")
-games.setxy(0,0,255)
+games.createmap(bis,bbis-1,1)
 games.reportcsv()
 games.reportposxy()
 games.starts()
