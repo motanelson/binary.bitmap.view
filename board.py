@@ -2,6 +2,7 @@ import tkinter as tk
 from PIL import Image, ImageTk
 import random
 import time
+from datetime import date, datetime, timedelta
 STEP=10
 l = ["backgr.png","bit.png","pin.png" ]
 pii=10
@@ -64,12 +65,19 @@ class game_board:
     def logs(self,s):
         f1=open(self.txtlogs,"a")
         f1.write(str(s)+"\n")
-        f1.close
+        f1.close()
     def clearlogs(self):
         f1=open(self.txtlogs,"w")
         f1.write("\n")
-        f1.close
-
+        f1.close()
+    def bars(self):
+        self.logs("-"*80)
+    def dates(self):
+        self.bars()
+        self.logs(datetime.now())
+    def titles(self,s):
+        self.bars()
+        self.logs("["+str(s)+"]")
     def score(self,n):
         self.scores=n
         self.labels = "score : " + str(self.scores)
@@ -242,7 +250,9 @@ games = game_board(640, 480, "black","My game")
 games.loads(l)
 games.randoms(pii,pines)
 games.addbmp(0,0,bis)
-games.clearlogs()      
+games.clearlogs()
+games.dates()     
+games.titles("score:")     
 games.loadmaps("level.txt")
 games.setxy(0,0,255)
 games.reportcsv()
