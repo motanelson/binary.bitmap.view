@@ -123,7 +123,7 @@ class game_board:
     def setpos(self,x,y,n):
         counter=0
         posxy=[]
-        #print("change"+str(x)+" : "+str(y))
+        
         for a in self.posxy:
             if counter==n:
                 xxyy=[x]+[y]
@@ -206,39 +206,41 @@ class game_board:
         xxx=0
         yyy=0
         counter=0
+        scr=""
         for b in arrays:
+            
             xxyy=[]
             counter=0
             for c in b:
             
                 if counter!=0:
-                    print(" , ",end="")
+                    scr=scr+" , "
                 
                 
-                print(chr((c & 0xff)+65),end="")
+                scr=scr+chr((c & 0xff)+65)
                 counter=counter+1
                 xxx=xxx+1
-            print("")
+            scr=scr+"\n"
             
             yyy=yyy+1
             xxx=0         
-                
+        self.logs(scr)        
         self.xy = xy
     def colision(self,n,n1,n2):
         xx=self.posxy[n][0]
         yy=self.posxy[n][1]
         
         for nn in range(n1,n2):
-            #print(nn)
+            
             x=self.posxy[nn][0] 
             y=self.posxy[nn][1]
             if abs(xx-x)<30 and abs(yy-y)<30:
                 return nn
         return -1    
     def reportposxy(self):
-        print(self.posxy)
+        self.logs(self.posxy)
     def report(self):
-        print(self.xy)
+        self.logs(self.xy)
     def starts(self):
         self.keyhandle()
         self.root.mainloop()
