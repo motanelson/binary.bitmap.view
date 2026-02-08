@@ -212,7 +212,7 @@ class game_board:
             #print(nn)
             x=self.posxy[nn][0] 
             y=self.posxy[nn][1]
-            if abs(xx-x)<6 and abs(yy-y)<6:
+            if abs(xx-x)<30 and abs(yy-y)<30:
                 return nn
         return -1    
     def reportposxy(self):
