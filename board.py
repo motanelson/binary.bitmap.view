@@ -34,6 +34,8 @@ def move(event):
         games.moves(int(-(games.w*1.5)),0,t)
         if ccounter==bbis-1:
             print("game over")
+        games.logs(games.scores)
+
 #import game_board
 class game_board:
     def __init__(self, w, h, colors,labels):
@@ -58,6 +60,16 @@ class game_board:
         self.abmp = []
         self.scores=0
         self.posxy=[]
+        self.txtlogs="log.txt"
+    def logs(self,s):
+        f1=open(self.txtlogs,"a")
+        f1.write(str(s)+"\n")
+        f1.close
+    def clearlogs(self):
+        f1=open(self.txtlogs,"w")
+        f1.write("\n")
+        f1.close
+
     def score(self,n):
         self.scores=n
         self.labels = "score : " + str(self.scores)
@@ -229,7 +241,8 @@ class game_board:
 games = game_board(640, 480, "black","My game")
 games.loads(l)
 games.randoms(pii,pines)
-games.addbmp(0,0,bis)        
+games.addbmp(0,0,bis)
+games.clearlogs()      
 games.loadmaps("level.txt")
 games.setxy(0,0,255)
 games.reportcsv()
