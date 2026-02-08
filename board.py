@@ -253,7 +253,7 @@ class game_board:
         for n in range(froms,intos):
             x=self.posxy[n][0]//10
             y=self.posxy[n][0]//10
-            self.setxy(y,x,values)
+            self.setxy(x,y,values)
            
         
     def reportposxy(self):
